@@ -229,11 +229,7 @@
 							"})\r",
 							"pm.test(\"salary = salary*3\", function () {\r",
 							"    pm.expect(+respData.salary[2]).to.eql(+reqData.salary*3)\r",
-							"})\r",
-							"\r",
-							"//Gроверить, что 2-й элемент массива salary больше 1-го и 0-го\r",
-							"\r",
-							""
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -274,107 +270,6 @@
 					],
 					"path": [
 						"new_data"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "test_pet_info",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"//Статус код 200\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"//Проверка структуры json в ответе.\r",
-							"const schema = {\r",
-							"  \"type\": \"object\",\r",
-							"  \"properties\": {\r",
-							"    \"age\": {\r",
-							"      \"type\": \"integer\"\r",
-							"    },\r",
-							"    \"daily_food\": {\r",
-							"      \"type\": \"number\"\r",
-							"    },\r",
-							"    \"daily_sleep\": {\r",
-							"      \"type\": \"number\"\r",
-							"    },\r",
-							"    \"name\": {\r",
-							"      \"type\": \"string\"\r",
-							"    }\r",
-							"  },\r",
-							"  \"required\": [\r",
-							"    \"age\",\r",
-							"    \"daily_food\",\r",
-							"    \"daily_sleep\",\r",
-							"    \"name\"\r",
-							"  ]\r",
-							"}\r",
-							"pm.test('Schema is valid', function() {\r",
-							"  pm.response.to.have.jsonSchema(schema)\r",
-							"})\r",
-							"\r",
-							"//В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.\r",
-							"\r",
-							"//  'daily_food':weight * 0.012,\r",
-							"//  'daily_sleep': weight * 2.5}\r",
-							"\r",
-							"let respData = pm.response.json();\r",
-							"let reqData = request.data\r",
-							"console.log(respData, reqData)\r",
-							"\r",
-							"pm.test(\"daily_food = weight = weight * 0.012\", function () {\r",
-							"    pm.expect(respData.daily_food).to.eql(reqData.weight*0.012)\r",
-							"})\r",
-							"pm.test(\"daily_sleep = weight = weight * 2.5\", function () {\r",
-							"    pm.expect(respData.daily_sleep).to.eql(reqData.weight*2.5)\r",
-							"})\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "age",
-							"value": "30",
-							"type": "text"
-						},
-						{
-							"key": "weight",
-							"value": "66",
-							"type": "text"
-						},
-						{
-							"key": "name",
-							"value": "Vlad",
-							"type": "text"
-						},
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/test_pet_info",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"test_pet_info"
 					]
 				}
 			},
@@ -522,33 +417,61 @@
 			"response": []
 		},
 		{
-			"name": "currency",
+			"name": "test_pet_info",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"//Статус код 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
 							"\r",
+							"//Проверка структуры json в ответе.\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"age\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"daily_food\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"daily_sleep\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"age\",\r",
+							"    \"daily_food\",\r",
+							"    \"daily_sleep\",\r",
+							"    \"name\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema)\r",
+							"})\r",
 							"\r",
-							"// Resp. Передаётся список массив объектов.\r",
-							"// [\r",
-							"// {\"Cur_Abbreviation\": str,\r",
-							"//  \"Cur_ID\": int,\r",
-							"//  \"Cur_Name\": str\r",
-							"// }\r",
-							"// …\r",
-							"// {\"Cur_Abbreviation\": str,\r",
-							"//  \"Cur_ID\": int,\r",
-							"//  \"Cur_Name\": str\r",
-							"// }\r",
-							"// ]\r",
+							"//В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.\r",
 							"\r",
-							"// Тесты:\r",
-							"// 1) Можете взять любой объект из присланного списка, используйте js random.\r",
+							"//  'daily_food':weight * 0.012,\r",
+							"//  'daily_sleep': weight * 2.5}\r",
 							"\r",
-							"// В объекте возьмите Cur_ID и передать через окружение в следующий запрос.\r",
+							"let respData = pm.response.json();\r",
+							"let reqData = request.data\r",
+							"console.log(respData, reqData)\r",
 							"\r",
-							"//  ==================="
+							"pm.test(\"daily_food = weight = weight * 0.012\", function () {\r",
+							"    pm.expect(respData.daily_food).to.eql(reqData.weight*0.012)\r",
+							"})\r",
+							"pm.test(\"daily_sleep = weight = weight * 2.5\", function () {\r",
+							"    pm.expect(respData.daily_sleep).to.eql(reqData.weight*2.5)\r",
+							"})\r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -561,6 +484,21 @@
 					"mode": "formdata",
 					"formdata": [
 						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "66",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Vlad",
+							"type": "text"
+						},
+						{
 							"key": "auth_token",
 							"value": "{{token}}",
 							"type": "text"
@@ -568,75 +506,12 @@
 					]
 				},
 				"url": {
-					"raw": "{{url}}/currency",
+					"raw": "{{url}}/test_pet_info",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"currency"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "curr_byn",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// 7) http://162.55.220.72:5005/curr_byn\r",
-							"// req.\r",
-							"// POST\r",
-							"// auth_token\r",
-							"// curr_code: int\r",
-							"\r",
-							"// Resp.\r",
-							"// {\r",
-							"//     \"Cur_Abbreviation\": str\r",
-							"//     \"Cur_ID\": int,\r",
-							"//     \"Cur_Name\": str,\r",
-							"//     \"Cur_OfficialRate\": float,\r",
-							"//     \"Cur_Scale\": int,\r",
-							"//     \"Date\": str\r",
-							"// }\r",
-							"\r",
-							"// Тесты:\r",
-							"// 1) Статус код 200\r",
-							"// 2) Проверка структуры json в ответе.\r",
-							"\r",
-							"// ***\r",
-							"// 1) получить список валют\r",
-							"// 2) итерировать список валют\r",
-							"// 3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты\r",
-							"// 4) если возвращается 500 код, переходим к следующей итреации\r",
-							"// 5) если получаем 200 код, проверяем response json на наличие поля \"Cur_OfficialRate\"\r",
-							"// 6) если поле есть, пишем в консоль инфу про фалюту в виде response\r",
-							"// {\r",
-							"//     \"Cur_Abbreviation\": str\r",
-							"//     \"Cur_ID\": int,\r",
-							"//     \"Cur_Name\": str,\r",
-							"//     \"Cur_OfficialRate\": float,\r",
-							"//     \"Cur_Scale\": int,\r",
-							"//     \"Date\": str\r",
-							"// }\r",
-							"// 7) переходим к следующей итерации"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/curr_byn",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"curr_byn"
+						"test_pet_info"
 					]
 				}
 			},
